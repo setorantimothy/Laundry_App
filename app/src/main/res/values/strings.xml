@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Laundry_App</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="email">Email</string>
+    <string name="new_user_sign_up">New User ? Sign up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="Register">REGISTER</string>
+    <string name="nama">Name</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login_link">Already have account ? Login</string>
+    <string name="phone_number">Phone Number</string>
+</resources>
