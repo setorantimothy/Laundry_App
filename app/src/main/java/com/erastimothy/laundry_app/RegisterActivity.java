@@ -29,9 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     MaterialButton signUp,signIn;
     FirebaseDatabase database;
     DatabaseReference reference;
-
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validateForm()) {
-                    register(name_et.getText().toString(), email_et.getText().toString(), password_et.getText().toString(), phoneNumber_et.getText().toString());
+                    registerAuth(email_et.getText().toString(), password_et.getText().toString());
                 }
             }
         });
@@ -71,30 +69,34 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    private void register(String name,String email, String password, String phoneNumber){
-        //get UID from registering AuthFirebase
-        String uid = registerAuth(email,password);
+    private void registerUsers(String uid){
+        String email = email_et.getText().toString();
+        String name = name_et.getText().toString();
+        String password = password_et.getText().toString();
+        String phoneNumber = phoneNumber_et.getText().toString();
+
         User user = new User(uid,name,email,password,phoneNumber);
-        reference.setValue(user);
+        reference.child(uid).setValue(user);
+        clearForm();
 
     }
 
-    private String registerAuth(String email, String password){
-        String id = "NULL";
+    private void registerAuth(String email, String password){
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this, "Register Successfull , please login !", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            String id = user.getUid();
+                            FirebaseUser fUser = mAuth.getCurrentUser();
+
+                            //register user to database realtime
+                            registerUsers(fUser.getUid());
                         }else {
-                            Toast.makeText(RegisterActivity.this, "Register Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Register Failed : "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-        return id;
     }
 
     private void clearForm(){

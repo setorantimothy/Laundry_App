@@ -15,8 +15,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -70,9 +74,28 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "Successful login !", Toast.LENGTH_SHORT).show();
                             FirebaseUser fUser = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "Hello "+fUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+                            final String uid = fUser.getUid();
+
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+                            Query checkUser = reference.orderByChild("uid").equalTo(uid);
+
+                            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()){
+                                        String name = snapshot.child(uid).child("name").getValue(String.class);
+                                        Toast.makeText(LoginActivity.this, "Hello "+name, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
                         } else {
-                            Toast.makeText(LoginActivity.this, "Failed login !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
