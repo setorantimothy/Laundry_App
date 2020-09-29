@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.erastimothy.laundry_app.Admin.AdminMainActivity;
+import com.erastimothy.laundry_app.Dao.UserDao;
+import com.erastimothy.laundry_app.User.UserMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     MaterialButton signUp,signIn;
     FirebaseDatabase database;
     DatabaseReference reference;
+    UserDao userDao;
 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -35,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         //Hook layout
         email_et = findViewById(R.id.email_et);
         password_et = findViewById(R.id.password_et);
@@ -84,7 +88,21 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if(snapshot.exists()){
                                         String name = snapshot.child(uid).child("name").getValue(String.class);
-                                        Toast.makeText(LoginActivity.this, "Hello "+name, Toast.LENGTH_SHORT).show();
+                                        Boolean _owner = snapshot.child(uid).child("_owner").getValue(Boolean.class);
+                                        Toast.makeText(LoginActivity.this, "Welcome back "+name, Toast.LENGTH_SHORT).show();
+
+                                        //redirect to owner package
+                                        if(_owner == true) {
+                                            Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);
+                                            startActivity(intent);
+                                        }else {
+                                            Intent intent = new Intent(LoginActivity.this, UserMainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        //redirect to user package
+
+
+
                                     }
                                 }
 

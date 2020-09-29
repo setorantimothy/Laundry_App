@@ -1,16 +1,16 @@
-package com.erastimothy.laundry_app;
+package com.erastimothy.laundry_app.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.erastimothy.laundry_app.R;
+
+public class UserMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
+        setContentView(R.layout.activity_user_main);
     }
 }

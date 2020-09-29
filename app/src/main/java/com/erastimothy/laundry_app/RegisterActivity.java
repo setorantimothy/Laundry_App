@@ -74,8 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
         String name = name_et.getText().toString();
         String password = password_et.getText().toString();
         String phoneNumber = phoneNumber_et.getText().toString();
-
-        User user = new User(uid,name,email,password,phoneNumber);
+        boolean is_owner = false;
+        User user = new User(uid,name,email,password,phoneNumber,is_owner);
         reference.child(uid).setValue(user);
         clearForm();
 
@@ -92,6 +92,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                             //register user to database realtime
                             registerUsers(fUser.getUid());
+
+                            //biar ga auto login
+                            mAuth.signOut();
                         }else {
                             Toast.makeText(RegisterActivity.this, "Register Failed : "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -121,11 +124,11 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
         if(phoneNumber_et.getText().length() < 9){
-            Toast.makeText(this, "Please fill phone number correctly", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Phone number min 9 digits", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(password_et.getText().length() < 6){
-            Toast.makeText(this, "Please fill password correctly", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password minimum 6 character", Toast.LENGTH_SHORT).show();
             return false;
         }
 
