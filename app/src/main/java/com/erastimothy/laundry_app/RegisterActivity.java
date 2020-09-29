@@ -54,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -78,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
         User user = new User(uid,name,email,password,phoneNumber,is_owner);
         reference.child(uid).setValue(user);
         clearForm();
+        mAuth.signOut();
 
     }
 
@@ -92,9 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             //register user to database realtime
                             registerUsers(fUser.getUid());
-
                             //biar ga auto login
-                            mAuth.signOut();
                         }else {
                             Toast.makeText(RegisterActivity.this, "Register Failed : "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

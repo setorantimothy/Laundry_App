@@ -3,7 +3,10 @@ package com.erastimothy.laundry_app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -57,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -68,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     private void login(String email, String password){
@@ -95,20 +102,18 @@ public class LoginActivity extends AppCompatActivity {
                                         if(_owner == true) {
                                             Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);
                                             startActivity(intent);
-                                        }else {
+
+                                        }else {  //redirect to user package
                                             Intent intent = new Intent(LoginActivity.this, UserMainActivity.class);
                                             startActivity(intent);
                                         }
-                                        //redirect to user package
-
-
-
+                                        finish();
                                     }
                                 }
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
-
+                                    Toast.makeText(LoginActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
