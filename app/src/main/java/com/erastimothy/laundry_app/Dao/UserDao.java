@@ -27,13 +27,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDao {
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private DatabaseReference reference;
+    private DatabaseReference reference,userReff;
     private Activity activity;
     private String name,phoneNumber,email,password;
     private ProgressDialog progressDialog;
+    private User user;
+    List<User> listUser;
 
     public UserDao(Activity myActivity) {
         activity = myActivity;
@@ -42,7 +47,7 @@ public class UserDao {
         database = FirebaseDatabase.getInstance();
         //set table
         reference = database.getReference("users");
-
+        listUser = new ArrayList<>();
         progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage("Loading...");
 
@@ -79,7 +84,6 @@ public class UserDao {
                                             Intent intent = new Intent(activity, UserMainActivity.class);
                                             activity.startActivity(intent);
                                         }
-                                        activity.finish();
                                     }
                                 }
 
@@ -98,6 +102,15 @@ public class UserDao {
                 });
     }
 
+    public String getCurrentUid(){
+        return mAuth.getUid();
+    }
+
+    public void signOut(){
+        mAuth.signOut();
+        activity.startActivity(new Intent(activity,LoginActivity.class));
+        activity.finish();
+    }
 
     private void registerUsers(String uid){
         User user = new User(uid,name,email,password,phoneNumber, false);
