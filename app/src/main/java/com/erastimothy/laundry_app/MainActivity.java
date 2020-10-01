@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
                         if(!task.isSuccessful()){
                             mag = "Failed";
                         }
-                        Toast.makeText(MainActivity.this,mag,Toast.LENGTH_SHORT).show();
+                        //check message push notification
+                        Log.i("Main Activity","PUSH NOTIFICATION : "+mag);
                     }
         });
 

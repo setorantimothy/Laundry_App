@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,14 +32,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
     TextInputEditText email_et,password_et;
     MaterialButton signUp,signIn;
-    FirebaseDatabase database;
-    DatabaseReference reference;
     UserDao userDao;
-
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         password_et = findViewById(R.id.password_et);
         signUp = findViewById(R.id.btnSignUp);
         signIn = findViewById(R.id.btnSignIn);
-
-        mAuth = FirebaseAuth.getInstance();
-        //get root database
-        database = FirebaseDatabase.getInstance();
-        //set table
-        reference = database.getReference("users");
+        userDao = new UserDao(this);
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,60 +61,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validateForm()) {
-                    login(email_et.getText().toString().trim(),password_et.getText().toString().trim());
+                    userDao.login(email_et.getText().toString().trim(),password_et.getText().toString().trim());
                 }
             }
         });
 
-
     }
 
-    private void login(String email, String password){
-        mAuth.signInWithEmailAndPassword(email,password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "Successful login !", Toast.LENGTH_SHORT).show();
-                            FirebaseUser fUser = mAuth.getCurrentUser();
-                            final String uid = fUser.getUid();
 
-                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-                            Query checkUser = reference.orderByChild("uid").equalTo(uid);
-
-                            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if(snapshot.exists()){
-                                        String name = snapshot.child(uid).child("name").getValue(String.class);
-                                        Boolean _owner = snapshot.child(uid).child("_owner").getValue(Boolean.class);
-                                        Toast.makeText(LoginActivity.this, "Welcome back "+name, Toast.LENGTH_SHORT).show();
-
-                                        //redirect to owner package
-                                        if(_owner == true) {
-                                            Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);
-                                            startActivity(intent);
-
-                                        }else {  //redirect to user package
-                                            Intent intent = new Intent(LoginActivity.this, UserMainActivity.class);
-                                            startActivity(intent);
-                                        }
-                                        finish();
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(LoginActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                        } else {
-                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
     private boolean validateForm(){
         email_et = findViewById(R.id.email_et);
         password_et = findViewById(R.id.password_et);

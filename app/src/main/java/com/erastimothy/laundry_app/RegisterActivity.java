@@ -5,18 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.erastimothy.laundry_app.Dao.UserDao;
 import com.erastimothy.laundry_app.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,11 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
     TextInputEditText name_et,email_et,phoneNumber_et,password_et;
     MaterialButton signUp,signIn;
-    FirebaseDatabase database;
-    DatabaseReference reference;
+    UserDao userDao;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         signUp = findViewById(R.id.btnSignUp);
         signIn = findViewById(R.id.btnSignIn);
 
-        mAuth = FirebaseAuth.getInstance();
-        //get root database
-        database = FirebaseDatabase.getInstance();
-        //set table
-        reference = database.getReference("users");
+        userDao = new UserDao(this);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,44 +53,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validateForm()) {
-                    registerAuth(email_et.getText().toString(), password_et.getText().toString());
+                    userDao.registerAuth(email_et.getText().toString(), password_et.getText().toString(),name_et.getText().toString(),phoneNumber_et.getText().toString());
+                    clearForm();
                 }
             }
         });
 
-    }
-
-
-    private void registerUsers(String uid){
-        String email = email_et.getText().toString();
-        String name = name_et.getText().toString();
-        String password = password_et.getText().toString();
-        String phoneNumber = phoneNumber_et.getText().toString();
-        boolean is_owner = false;
-        User user = new User(uid,name,email,password,phoneNumber,is_owner);
-        reference.child(uid).setValue(user);
-        clearForm();
-        mAuth.signOut();
-
-    }
-
-    private void registerAuth(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this, "Register Successfull , please login !", Toast.LENGTH_SHORT).show();
-                            FirebaseUser fUser = mAuth.getCurrentUser();
-
-                            //register user to database realtime
-                            registerUsers(fUser.getUid());
-                            //biar ga auto login
-                        }else {
-                            Toast.makeText(RegisterActivity.this, "Register Failed : "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
 
     private void clearForm(){
