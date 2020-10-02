@@ -1,8 +1,10 @@
 package com.erastimothy.laundry_app.Model;
 
+
+
 public class User {
-    private String name,email,password,phoneNumber,uid;
-    private boolean is_owner;
+    public String name,email,password,phoneNumber,uid;
+    public boolean is_owner;
 
     public User(String uid,String name, String email, String password, String phoneNumber,boolean is_owner) {
         this.uid = uid;
@@ -35,7 +37,7 @@ public class User {
 
     public String getEmail() {
         return email;
-    }
+    }   
 
     public void setEmail(String email) {
         this.email = email;

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/UserMainActivityLayout"
     tools:context=".User.UserMainActivity">
 
     <RelativeLayout
@@ -66,7 +67,7 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/menu3"
+        android:id="@+id/myAccountMenu"
         android:clickable="true"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

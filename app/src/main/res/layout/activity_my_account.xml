@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_margin="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".User.MyAccountActivity">
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_marginTop="24dp"
+            style="@style/TextAppearance.MaterialComponents.Headline4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Account"
+            android:textAlignment="center"
+            android:textColor="#4DB6AC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_tvl"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            app:boxBackgroundMode="outline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_tv">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Email"
+                android:focusable="false"
+                android:editable="false"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_tvl"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="outline"
+            android:layout_marginTop="24dp"
+            app:helperText="You can change your name here"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_tvl">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:hint="Name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneNumber_tvl"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:boxBackgroundMode="outline"
+            app:counterEnabled="true"
+            app:counterMaxLength="13"
+            app:helperText="You can change your phone number here"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_tvl">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phoneNumber_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:hint="Phone Number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

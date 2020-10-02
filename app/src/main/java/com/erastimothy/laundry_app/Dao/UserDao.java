@@ -33,7 +33,7 @@ import java.util.List;
 public class UserDao {
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private DatabaseReference reference,userReff;
+    private DatabaseReference reference;
     private Activity activity;
     private String name,phoneNumber,email,password;
     private ProgressDialog progressDialog;
@@ -47,7 +47,6 @@ public class UserDao {
         database = FirebaseDatabase.getInstance();
         //set table
         reference = database.getReference("users");
-        listUser = new ArrayList<>();
         progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage("Loading...");
 
