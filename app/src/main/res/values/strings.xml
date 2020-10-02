@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Laundry_App</string>
+    <string name="mapbox_access_token">pk.eyJ1Ijoic2V0b3JhbnRpbW90aHkiLCJhIjoiY2tmbWlrNXRwMWwzbTJxcGs2NmNuYzNrMiJ9.YsRwoj0Q9P6zLvp-RK7cKQ</string>
+
     <string name="password">Password</string>
     <string name="login">LOGIN</string>
     <string name="email">Email</string>

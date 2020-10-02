@@ -9,7 +9,7 @@
     tools:context=".User.UserMainActivity">
 
     <RelativeLayout
-        android:id="@+id/menu1"
+        android:id="@+id/orderMenu"
         android:clickable="true"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

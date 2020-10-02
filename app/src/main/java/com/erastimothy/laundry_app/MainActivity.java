@@ -10,10 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.erastimothy.laundry_app.Admin.AdminMainActivity;
+import com.erastimothy.laundry_app.Dao.SharedPreferencesUser;
 import com.erastimothy.laundry_app.Dao.UserDao;
+import com.erastimothy.laundry_app.Model.User;
 import com.erastimothy.laundry_app.User.UserMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,9 +31,22 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(userDao.getCurrentUid() != null){ //if user exist, go to homepage
+
+                //cek login
+                SharedPreferencesUser sessionUser = new SharedPreferencesUser(MainActivity.this);
+                User user = sessionUser.getUserLoginFromSharedPrefernces();
+
+                //if user exist, auto login , go to homepage
+                if(userDao.getCurrentUid() != null){
+                    if(user.is_owner()){
+                        //owner redirect to owner page
+                        Intent intent = new Intent(MainActivity.this, AdminMainActivity.class);
+                        startActivity(intent);
+                    }else{
                         Intent intent = new Intent(MainActivity.this, UserMainActivity.class);
                         startActivity(intent);
+                    }
+
                 } else { // if user doesnt exist, go to login page
                     Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                     startActivity(intent);

@@ -2,10 +2,7 @@ package com.erastimothy.laundry_app.Dao;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,7 +10,6 @@ import androidx.annotation.NonNull;
 import com.erastimothy.laundry_app.Admin.AdminMainActivity;
 import com.erastimothy.laundry_app.LoginActivity;
 import com.erastimothy.laundry_app.Model.User;
-import com.erastimothy.laundry_app.RegisterActivity;
 import com.erastimothy.laundry_app.User.UserMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
@@ -59,7 +54,6 @@ public class UserDao {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(activity, "Successful login !", Toast.LENGTH_SHORT).show();
                             FirebaseUser fUser = mAuth.getCurrentUser();
                             final String uid = fUser.getUid();
 
@@ -71,14 +65,21 @@ public class UserDao {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if(snapshot.exists()){
                                         String name = snapshot.child(uid).child("name").getValue(String.class);
+                                        String email = snapshot.child(uid).child("email").getValue(String.class);
+                                        String password = snapshot.child(uid).child("password").getValue(String.class);
+                                        String phoneNumber = snapshot.child(uid).child("phoneNumber").getValue(String.class);
                                         Boolean _owner = snapshot.child(uid).child("_owner").getValue(Boolean.class);
+                                        String _uid = snapshot.child(uid).child("uid").getValue(String.class);
+
+                                        SharedPreferencesUser sessionUser = new SharedPreferencesUser(activity);
+                                        sessionUser.createLoginUser(uid,email,password,name,phoneNumber,_owner);
+
                                         Toast.makeText(activity, "Welcome back "+name, Toast.LENGTH_SHORT).show();
 
                                         //redirect to owner package
                                         if(_owner == true) {
                                             Intent intent = new Intent(activity, AdminMainActivity.class);
                                             activity.startActivity(intent);
-
                                         }else {  //redirect to user package
                                             Intent intent = new Intent(activity, UserMainActivity.class);
                                             activity.startActivity(intent);
@@ -144,5 +145,11 @@ public class UserDao {
         progressDialog.dismiss();
     }
 
+    public void updateUser(User _newUser , String uid){
+        reference.child(uid).setValue(user);
+        SharedPreferencesUser sessionUser = new SharedPreferencesUser(activity);
+        sessionUser.logout();
+        sessionUser.createLoginUser(_newUser.getUid(),_newUser.getEmail(),_newUser.getPassword(),_newUser.getName(),_newUser.getPhoneNumber(),_newUser.is_owner());
+    }
 
 }

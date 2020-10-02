@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.erastimothy.laundry_app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".User.MyAccountActivity"></activity>
+        <activity android:name=".User.OrderLaundryActivity"></activity>
+        <activity android:name=".User.MyAccountActivity" />
         <activity android:name=".Admin.AdminMainActivity" />
         <activity android:name=".User.UserMainActivity" />
         <activity android:name=".RegisterActivity" />

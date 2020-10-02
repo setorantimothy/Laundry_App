@@ -8,19 +8,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.erastimothy.laundry_app.Dao.UserDao;
 import com.erastimothy.laundry_app.Model.User;
 import com.erastimothy.laundry_app.R;
 import com.erastimothy.laundry_app.databinding.ActivityMyAccountBinding;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class MyAccountActivity extends AppCompatActivity {
     User user;
     ActivityMyAccountBinding binding;
+    String nama,phoneNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_account);
-
 
         Bundle bundle = getIntent().getExtras();
 
@@ -31,7 +33,25 @@ public class MyAccountActivity extends AppCompatActivity {
         binding.phoneNumberEt.setText(user.getPhoneNumber());
         //binding.setUserData(user);
 
+
+
+
     }
+
+//    public void updateUser(View view){
+//        TextInputEditText name_et = view.findViewById(R.id.nama_et);
+//        TextInputEditText phoneNumber_et = view.findViewById(R.id.phoneNumber_et);
+//
+//        String _uid = user.getUid();
+//        String _name = name_et.getText().toString().trim();
+//        String _phoneNumber = phoneNumber_et.getText().toString().trim();
+//        user.setName(_name);
+//        user.setPhoneNumber(_phoneNumber);
+//        UserDao userDao = new UserDao(MyAccountActivity.this);
+//        userDao.updateUser(user,_uid);
+//        Toast.makeText(MyAccountActivity.this, "Data Berhasil diubah !", Toast.LENGTH_SHORT).show();
+//
+//    }
 
     @Override
     public void onBackPressed() {
