@@ -2,6 +2,7 @@ package com.erastimothy.laundry_app.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -74,7 +75,7 @@ public class OrderLaundryActivity extends AppCompatActivity {
                     harga_et.setText("0");
             }
         });
-        
+
         dropDownText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -98,6 +99,13 @@ public class OrderLaundryActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(OrderLaundryActivity.this,UserMainActivity.class));
+        finish();
     }
 
 }

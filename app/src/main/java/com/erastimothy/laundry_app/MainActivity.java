@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.erastimothy.laundry_app.Admin.AdminMainActivity;
 import com.erastimothy.laundry_app.Dao.SharedPreferencesUser;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
                 User user = sessionUser.getUserLoginFromSharedPrefernces();
 
                 //if user exist, auto login , go to homepage
-                if(userDao.getCurrentUid() != null){
+                if(user.getName() != null){
+                    Toast.makeText(MainActivity.this, "Welcome back "+user.getName(), Toast.LENGTH_SHORT).show();
                     if(user.is_owner()){
                         //owner redirect to owner page
                         Intent intent = new Intent(MainActivity.this, AdminMainActivity.class);

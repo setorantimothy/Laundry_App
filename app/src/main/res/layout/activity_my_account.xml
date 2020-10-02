@@ -45,7 +45,6 @@
                 android:hint="Email"
                 android:focusable="false"
                 android:editable="false"
-
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,7 +55,6 @@
             android:layout_height="wrap_content"
             app:boxBackgroundMode="outline"
             android:layout_marginTop="24dp"
-            app:helperText="You can change your name here"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_tvl">
@@ -66,7 +64,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusedByDefault="false"
-                android:hint="Name" />
+                android:hint="Name"
+                android:focusable="false"
+                android:editable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -78,7 +78,6 @@
             app:boxBackgroundMode="outline"
             app:counterEnabled="true"
             app:counterMaxLength="13"
-            app:helperText="You can change your phone number here"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name_tvl">
@@ -88,7 +87,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusedByDefault="false"
-                android:hint="Phone Number" />
+                android:hint="Phone Number"
+                android:focusable="false"
+                android:editable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
