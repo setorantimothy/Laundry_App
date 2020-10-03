@@ -243,7 +243,6 @@ public class PengaturanTokoActivity extends AppCompatActivity implements OnMapRe
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
             CarmenFeature selectedCarmenFeature = PlaceAutocomplete.getPlace(data);
-
             changeAlamatET(selectedCarmenFeature.placeName());
 
             if (mapboxMap != null) {
@@ -303,7 +302,6 @@ public class PengaturanTokoActivity extends AppCompatActivity implements OnMapRe
                 }
                 originMarker = mapboxMap.addMarker(new MarkerOptions().position(point));
                 origin = Point.fromLngLat(point.getLongitude(), point.getLatitude());
-
                 geocoder = new Geocoder(PengaturanTokoActivity.this, Locale.getDefault());
                 try {
                     List<Address> addresses = geocoder.getFromLocation(origin.latitude(), origin.longitude(), 1);
