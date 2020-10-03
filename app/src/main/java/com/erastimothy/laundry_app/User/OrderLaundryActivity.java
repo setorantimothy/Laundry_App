@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import com.erastimothy.laundry_app.Model.Toko;
+import com.erastimothy.laundry_app.Preferences.TokoPreferences;
 import com.erastimothy.laundry_app.Preferences.UserPreferences;
 import com.erastimothy.laundry_app.Model.User;
 import com.erastimothy.laundry_app.R;
@@ -23,8 +25,9 @@ public class OrderLaundryActivity extends AppCompatActivity {
     private TextInputLayout dropDownLayout;
     private AutoCompleteTextView dropDownText;
     private UserPreferences userSP;
+    private TokoPreferences tokoSP;
     private double harga = 0;
-
+    private Toko toko;
     User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class OrderLaundryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_laundry);
         userSP = new UserPreferences(OrderLaundryActivity.this);
         user = userSP.getUserLoginFromSharedPrefernces();
+        tokoSP = new TokoPreferences(OrderLaundryActivity.this);
+        toko = tokoSP.getToko();
 
         TextInputEditText nama_et = findViewById(R.id.nama_et);
         TextInputEditText kuantitas_et = findViewById(R.id.quantity_et);
