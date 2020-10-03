@@ -13,7 +13,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.erastimothy.laundry_app.Admin.AdminMainActivity;
-import com.erastimothy.laundry_app.Dao.SharedPreferencesUser;
+import com.erastimothy.laundry_app.Dao.TokoDao;
+import com.erastimothy.laundry_app.Preferences.TokoPreferences;
+import com.erastimothy.laundry_app.Preferences.UserPreferences;
 import com.erastimothy.laundry_app.Dao.UserDao;
 import com.erastimothy.laundry_app.Model.User;
 import com.erastimothy.laundry_app.User.UserMainActivity;
@@ -28,35 +30,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         userDao = new UserDao(this);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                //cek login
-                SharedPreferencesUser sessionUser = new SharedPreferencesUser(MainActivity.this);
-                User user = sessionUser.getUserLoginFromSharedPrefernces();
-
-                //if user exist, auto login , go to homepage
-                if(user.getName() != null){
-                    Toast.makeText(MainActivity.this, "Welcome back "+user.getName(), Toast.LENGTH_SHORT).show();
-                    if(user.is_owner()){
-                        //owner redirect to owner page
-                        Intent intent = new Intent(MainActivity.this, AdminMainActivity.class);
-                        startActivity(intent);
-                    }else{
-                        Intent intent = new Intent(MainActivity.this, UserMainActivity.class);
-                        startActivity(intent);
-                    }
-
-                } else { // if user doesnt exist, go to login page
-                    Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                    startActivity(intent);
+        Intent intents = getIntent();
+        Bundle bundle = intents.getExtras();
+        if(bundle !=null)
+            changeUI();
+        else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    changeUI();
                 }
+            },3000);
+        }
 
-                finish();
-            }
-        },3000);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String CHANNEL_ID = "Channel 1";
@@ -82,5 +68,32 @@ public class MainActivity extends AppCompatActivity {
                     }
         });
 
+    }
+
+    void changeUI(){
+        //cek login
+        UserPreferences sessionUser = new UserPreferences(MainActivity.this);
+        User user = sessionUser.getUserLoginFromSharedPrefernces();
+
+        //if user exist, auto login , go to homepage
+        if(user.getName() != null){
+            TokoDao tokoDao = new TokoDao(MainActivity.this);
+            tokoDao.setTokoFromDatabase();
+            Toast.makeText(MainActivity.this, "Welcome back "+user.getName(), Toast.LENGTH_SHORT).show();
+            if(user.is_owner()){
+                //owner redirect to owner page
+                Intent intent = new Intent(MainActivity.this, AdminMainActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(MainActivity.this, UserMainActivity.class);
+                startActivity(intent);
+            }
+
+        } else { // if user doesnt exist, go to login page
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
+        }
+
+        finish();
     }
 }

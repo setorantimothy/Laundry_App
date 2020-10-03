@@ -1,11 +1,11 @@
-package com.erastimothy.laundry_app.Dao;
+package com.erastimothy.laundry_app.Preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.erastimothy.laundry_app.Model.User;
 
-public class SharedPreferencesUser {
+public class UserPreferences {
     SharedPreferences userSP;
     SharedPreferences.Editor editor;
     Context context;
@@ -20,7 +20,7 @@ public class SharedPreferencesUser {
     public static final String KEY_PHONENUMBER = "phoneNumber";
     public static final String KEY_OWNER = "_owner";
 
-    public SharedPreferencesUser(Context context) {
+    public UserPreferences(Context context) {
         this.context = context;
         userSP = context.getSharedPreferences("userPreferences", Context.MODE_PRIVATE);
         editor = userSP.edit();

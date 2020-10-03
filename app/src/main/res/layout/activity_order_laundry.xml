@@ -98,12 +98,16 @@
             android:layout_height="match_parent"
             android:hint="Harga"
             android:inputType="number|numberDecimal"
-            android:editable="false"/>
+            android:editable="false"
+            android:focusable="false"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/ongkir_tvl"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
@@ -119,16 +123,18 @@
             android:layout_height="match_parent"
             android:hint="Biaya antar jemput"
             android:inputType="number|numberDecimal"
-            android:editable="false"/>
+            android:editable="false"
+            android:focusable="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/total_tvl"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         app:boxBackgroundMode="outline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +146,8 @@
             android:layout_height="match_parent"
             android:hint="Total Pembayaran"
             android:inputType="number|numberDecimal"
-            android:editable="false"/>
+            android:editable="false"
+            android:focusable="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

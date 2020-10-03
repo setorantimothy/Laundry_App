@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.erastimothy.laundry_app.Dao.UserDao;
 import com.erastimothy.laundry_app.Model.User;
 import com.erastimothy.laundry_app.R;
-import com.erastimothy.laundry_app.Dao.SharedPreferencesUser;
+import com.erastimothy.laundry_app.Preferences.UserPreferences;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -47,7 +47,7 @@ public class UserMainActivity extends AppCompatActivity {
         signOutMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferencesUser sessionUser = new SharedPreferencesUser(UserMainActivity.this);
+                UserPreferences sessionUser = new UserPreferences(UserMainActivity.this);
                 Toast.makeText(UserMainActivity.this, "Bye, " + sessionUser.getUserLoginFromSharedPrefernces().getName(), Toast.LENGTH_SHORT).show();
                 sessionUser.logout();
                 userDao.signOut();
@@ -57,7 +57,7 @@ public class UserMainActivity extends AppCompatActivity {
         myAccountMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferencesUser sessionUser = new SharedPreferencesUser(UserMainActivity.this);
+                UserPreferences sessionUser = new UserPreferences(UserMainActivity.this);
                 User user = sessionUser.getUserLoginFromSharedPrefernces();
 
                 Bundle bundle = new Bundle();

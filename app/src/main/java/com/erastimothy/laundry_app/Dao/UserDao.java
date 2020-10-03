@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 
 import com.erastimothy.laundry_app.Admin.AdminMainActivity;
 import com.erastimothy.laundry_app.LoginActivity;
+import com.erastimothy.laundry_app.MainActivity;
 import com.erastimothy.laundry_app.Model.User;
+import com.erastimothy.laundry_app.Preferences.UserPreferences;
 import com.erastimothy.laundry_app.User.UserMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -71,19 +73,13 @@ public class UserDao {
                                         Boolean _owner = snapshot.child(uid).child("_owner").getValue(Boolean.class);
                                         String _uid = snapshot.child(uid).child("uid").getValue(String.class);
 
-                                        SharedPreferencesUser sessionUser = new SharedPreferencesUser(activity);
+                                        UserPreferences sessionUser = new UserPreferences(activity);
                                         sessionUser.createLoginUser(uid,email,password,name,phoneNumber,_owner);
 
-                                        Toast.makeText(activity, "Welcome back "+name, Toast.LENGTH_SHORT).show();
-
-                                        //redirect to owner package
-                                        if(_owner == true) {
-                                            Intent intent = new Intent(activity, AdminMainActivity.class);
-                                            activity.startActivity(intent);
-                                        }else {  //redirect to user package
-                                            Intent intent = new Intent(activity, UserMainActivity.class);
-                                            activity.startActivity(intent);
-                                        }
+                                        Intent intent = new Intent(activity, MainActivity.class);
+                                        //define intent from login so doesnt show splash screen
+                                        intent.putExtra("login",true);
+                                        activity.startActivity(intent);
                                     }
                                 }
 
@@ -147,7 +143,7 @@ public class UserDao {
 
     public void updateUser(User _newUser , String uid){
         reference.child(uid).setValue(user);
-        SharedPreferencesUser sessionUser = new SharedPreferencesUser(activity);
+        UserPreferences sessionUser = new UserPreferences(activity);
         sessionUser.logout();
         sessionUser.createLoginUser(_newUser.getUid(),_newUser.getEmail(),_newUser.getPassword(),_newUser.getName(),_newUser.getPhoneNumber(),_newUser.is_owner());
     }

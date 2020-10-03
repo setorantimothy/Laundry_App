@@ -10,9 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 
-import com.erastimothy.laundry_app.Dao.SharedPreferencesUser;
+import com.erastimothy.laundry_app.Preferences.UserPreferences;
 import com.erastimothy.laundry_app.Model.User;
 import com.erastimothy.laundry_app.R;
 import com.google.android.material.button.MaterialButton;
@@ -23,7 +22,7 @@ public class OrderLaundryActivity extends AppCompatActivity {
 
     private TextInputLayout dropDownLayout;
     private AutoCompleteTextView dropDownText;
-    private SharedPreferencesUser userSP;
+    private UserPreferences userSP;
     private double harga = 0;
 
     User user;
@@ -31,7 +30,7 @@ public class OrderLaundryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_laundry);
-        userSP = new SharedPreferencesUser(OrderLaundryActivity.this);
+        userSP = new UserPreferences(OrderLaundryActivity.this);
         user = userSP.getUserLoginFromSharedPrefernces();
 
         TextInputEditText nama_et = findViewById(R.id.nama_et);
