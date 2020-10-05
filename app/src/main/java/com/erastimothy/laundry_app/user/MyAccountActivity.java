@@ -1,19 +1,14 @@
-package com.erastimothy.laundry_app.User;
+package com.erastimothy.laundry_app.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
-import com.erastimothy.laundry_app.Dao.UserDao;
-import com.erastimothy.laundry_app.Model.User;
+import com.erastimothy.laundry_app.model.User;
 import com.erastimothy.laundry_app.R;
 import com.erastimothy.laundry_app.databinding.ActivityMyAccountBinding;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class MyAccountActivity extends AppCompatActivity {
     User user;

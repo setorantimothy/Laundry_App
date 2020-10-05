@@ -1,23 +1,18 @@
-package com.erastimothy.laundry_app.Dao;
+package com.erastimothy.laundry_app.dao;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 
 import androidx.annotation.NonNull;
 
-import com.erastimothy.laundry_app.Admin.PengaturanTokoActivity;
-import com.erastimothy.laundry_app.Model.Toko;
-import com.erastimothy.laundry_app.Model.User;
-import com.erastimothy.laundry_app.Preferences.TokoPreferences;
-import com.erastimothy.laundry_app.Preferences.UserPreferences;
+import com.erastimothy.laundry_app.model.Toko;
+import com.erastimothy.laundry_app.preferences.TokoPreferences;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.List;
 
 public class TokoDao {
     private FirebaseAuth mAuth;

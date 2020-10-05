@@ -1,4 +1,4 @@
-package com.erastimothy.laundry_app.User;
+package com.erastimothy.laundry_app.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.erastimothy.laundry_app.Dao.UserDao;
-import com.erastimothy.laundry_app.Model.User;
+import com.erastimothy.laundry_app.dao.UserDao;
+import com.erastimothy.laundry_app.model.User;
 import com.erastimothy.laundry_app.R;
-import com.erastimothy.laundry_app.Preferences.UserPreferences;
+import com.erastimothy.laundry_app.preferences.UserPreferences;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,6 +34,7 @@ public class UserMainActivity extends AppCompatActivity {
         RelativeLayout signOutMenu = (RelativeLayout) findViewById(R.id.signOutMenu);
         RelativeLayout myAccountMenu = (RelativeLayout) findViewById(R.id.myAccountMenu);
         RelativeLayout orderMenu = (RelativeLayout) findViewById(R.id.orderMenu);
+        RelativeLayout myOrderMenu = (RelativeLayout) findViewById(R.id.myOrderMenu);
 
         orderMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +42,17 @@ public class UserMainActivity extends AppCompatActivity {
                 Intent intent = new Intent(UserMainActivity.this, OrderLaundryActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        myOrderMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserMainActivity.this, MyOrderActivity.class);
+                startActivity(intent);
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.UserMainActivityLayout,new MyOrderFragment())
+//                        .commit();
             }
         });
 

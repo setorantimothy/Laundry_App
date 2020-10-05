@@ -1,9 +1,9 @@
-package com.erastimothy.laundry_app.Preferences;
+package com.erastimothy.laundry_app.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.erastimothy.laundry_app.Model.User;
+import com.erastimothy.laundry_app.model.User;
 
 public class UserPreferences {
     SharedPreferences userSP;

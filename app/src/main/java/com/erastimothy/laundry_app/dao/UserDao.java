@@ -1,4 +1,4 @@
-package com.erastimothy.laundry_app.Dao;
+package com.erastimothy.laundry_app.dao;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,12 +7,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.erastimothy.laundry_app.Admin.AdminMainActivity;
 import com.erastimothy.laundry_app.LoginActivity;
 import com.erastimothy.laundry_app.MainActivity;
-import com.erastimothy.laundry_app.Model.User;
-import com.erastimothy.laundry_app.Preferences.UserPreferences;
-import com.erastimothy.laundry_app.User.UserMainActivity;
+import com.erastimothy.laundry_app.model.User;
+import com.erastimothy.laundry_app.preferences.UserPreferences;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

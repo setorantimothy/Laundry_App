@@ -1,4 +1,4 @@
-package com.erastimothy.laundry_app.Model;
+package com.erastimothy.laundry_app.model;
 
 
 

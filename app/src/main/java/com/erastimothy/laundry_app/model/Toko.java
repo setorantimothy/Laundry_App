@@ -1,4 +1,4 @@
-package com.erastimothy.laundry_app.Model;
+package com.erastimothy.laundry_app.model;
 
 public class Toko {
     private String alamat,name,telp;

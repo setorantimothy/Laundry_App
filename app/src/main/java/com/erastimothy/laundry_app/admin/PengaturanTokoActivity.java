@@ -1,4 +1,4 @@
-package com.erastimothy.laundry_app.Admin;
+package com.erastimothy.laundry_app.admin;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,9 +17,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.erastimothy.laundry_app.Dao.TokoDao;
-import com.erastimothy.laundry_app.Model.Toko;
-import com.erastimothy.laundry_app.Preferences.TokoPreferences;
+import com.erastimothy.laundry_app.dao.TokoDao;
+import com.erastimothy.laundry_app.model.Toko;
+import com.erastimothy.laundry_app.preferences.TokoPreferences;
 import com.erastimothy.laundry_app.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.mapbox.android.core.permissions.PermissionsListener;
@@ -102,7 +102,7 @@ public class PengaturanTokoActivity extends AppCompatActivity implements OnMapRe
             public void onClick(View view) {
                 Toko _toko = new Toko(alamatToko_et.getText().toString(), namaToko_et.getText().toString(), telp_et.getText().toString(), origin.longitude(), origin.latitude());
                 tokoDao.saveToko(_toko);
-
+                Toast.makeText(PengaturanTokoActivity.this, "Berhasil menyimpan perubahan!", Toast.LENGTH_SHORT).show();
             }
         });
         alamatToko_et.setOnFocusChangeListener(new View.OnFocusChangeListener() {

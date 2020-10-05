@@ -1,4 +1,4 @@
-package com.erastimothy.laundry_app.User;
+package com.erastimothy.laundry_app.user;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,15 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,18 +21,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
-import com.erastimothy.laundry_app.Admin.PengaturanTokoActivity;
-import com.erastimothy.laundry_app.Dao.LaundryDao;
-import com.erastimothy.laundry_app.Dao.TokoDao;
-import com.erastimothy.laundry_app.Model.Laundry;
-import com.erastimothy.laundry_app.Model.Toko;
-import com.erastimothy.laundry_app.Preferences.TokoPreferences;
-import com.erastimothy.laundry_app.Preferences.UserPreferences;
-import com.erastimothy.laundry_app.Model.User;
+import com.erastimothy.laundry_app.dao.LaundryDao;
+import com.erastimothy.laundry_app.model.Laundry;
+import com.erastimothy.laundry_app.model.Toko;
+import com.erastimothy.laundry_app.preferences.TokoPreferences;
+import com.erastimothy.laundry_app.preferences.UserPreferences;
+import com.erastimothy.laundry_app.model.User;
 import com.erastimothy.laundry_app.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -131,9 +122,9 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
 
         //list items
         String[] items = new String[]{
-                "Kiloan",
-                "Sprei",
-                "Boneka",
+                "Cuci Kiloan",
+                "Cuci Sprei Satuan",
+                "Cuci Boneka Satuan",
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -151,12 +142,15 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
                 if(validateForm()){
                     laundry = new Laundry(user.getUid(),nama_et.getText().toString().trim(),
                             dropDownText.getText().toString(),alamat_et.getText().toString().trim(),
-                            "order", LocalDate.now().toString(),"null",Double.parseDouble(kuantitas_et.getText().toString()),
+                            "Menunggu Penjemputan", LocalDate.now().toString(),"null",Double.parseDouble(kuantitas_et.getText().toString()),
                             Double.parseDouble(harga_et.getText().toString()),Double.parseDouble(ongkir_et.getText().toString()),
                             Double.parseDouble(total_et.getText().toString()));
                     laundryDao = new LaundryDao(OrderLaundryActivity.this);
                     //laundryDao.reset();
                     laundryDao.save(laundry);
+
+                    goToOrderDetail(laundry);
+
                     clearForm();
                 }
             }
@@ -200,13 +194,13 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (adapter.getItem(i)) {
-                    case "Kiloan":
+                    case "Cuci Kiloan":
                         harga = 5000;
                         break;
-                    case "Sprei":
+                    case "Cuci Sprei Satuan":
                         harga = 9000;
                         break;
-                    case "Boneka":
+                    case "Cuci Boneka Satuan":
                         harga = 15000;
                         break;
                 }
@@ -220,6 +214,26 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
         });
 
     }
+
+    private void goToOrderDetail(Laundry laundry) {
+        Intent intent = new Intent(this, OrderDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("alamat",laundry.getAlamat());
+        bundle.putString("biaya_antar",String.valueOf(laundry.getBiaya_antar()));
+        bundle.putString("harga",String.valueOf(laundry.getHarga()));
+        bundle.putString("total_pembayaran",String.valueOf(laundry.getTotal_pembayaran()));
+        bundle.putString("jenis",laundry.getJenis());
+        bundle.putString("kuantitas", String.valueOf(laundry.getKuantitas()));
+        bundle.putString("order_id",laundry.getOrder_id());
+        bundle.putString("nama",laundry.getNama());
+        bundle.putString("tanggal",laundry.getTanggal());
+        bundle.putString("uid",laundry.getUid());
+        bundle.putString("status",laundry.getStatus());
+        intent.putExtra("laundry",bundle);
+
+        startActivity(intent);
+    }
+
     private void clearForm(){
         TextInputEditText kuantitas_et = findViewById(R.id.quantity_et);
         TextInputEditText harga_et = findViewById(R.id.harga_et);

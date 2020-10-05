@@ -1,8 +1,10 @@
-package com.erastimothy.laundry_app.Model;
+package com.erastimothy.laundry_app.model;
 
 public class Laundry {
     private String uid,nama,jenis,alamat,status,tanggal,order_id;
     private double kuantitas,harga,biaya_antar,total_pembayaran;
+
+    public Laundry() {}
 
     public String getUid() {
         return uid;

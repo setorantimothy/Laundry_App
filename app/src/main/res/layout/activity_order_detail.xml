@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="32dp"
+        tools:context=".user.OrderDetailActivity">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/abc_vector_test"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_marginTop="32dp"
+            android:id="@+id/orderid_tv"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="#202020"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack"  />
+
+        <TextView
+            android:id="@+id/nama_tv"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Nama saya"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderid_tv" />
+
+        <TextView
+            android:id="@+id/alamat_tv"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="alamat saya"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nama_tv" />
+
+        <TableLayout
+            android:layout_marginTop="32dp"
+            android:id="@+id/tabelInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alamat_tv">
+            <TableRow
+                android:layout_marginBottom="8dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal  "
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/tanggal_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="2020-10-10"
+                    android:gravity="right"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="24dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Status "
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/status_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Menunggu penjemputan !"
+                    android:gravity="right"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_weight="1"/>
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="===== ITEM ===== "
+                    android:textAlignment="center"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_weight="1"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="5dp"
+                >
+                <TextView
+                    android:id="@+id/jenis_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cuci Kiloan"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:gravity="center"
+                    android:text="x" />
+
+                <TextView
+                    android:id="@+id/kuantitas_tv"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.25"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="2" />
+                <TextView
+                    android:id="@+id/harga_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="5000"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    />
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Biaya Antar"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/biaya_antar_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="5000"
+                    android:gravity="right"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_weight="1"/>
+
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:text="======================"
+                    />
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total "
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/total_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="5000"
+                    android:gravity="right"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_weight="1"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/namaToko_tv"
+            android:layout_marginTop="32dp"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Toko"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabelInfo"
+            />
+
+        <TextView
+            android:id="@+id/alamatToko_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="64dp"
+            android:text="Alamat Toko"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/namaToko_tv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
