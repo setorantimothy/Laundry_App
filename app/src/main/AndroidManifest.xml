@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.ListOrderan"></activity>
+        <activity android:name=".admin.EditOrderLaundryActivity"></activity>
+        <activity android:name=".admin.RiwayatOrder" />
+        <activity android:name=".admin.ListOrderan" />
         <activity android:name=".user.OrderDetailActivity" />
         <activity android:name=".user.MyOrderActivity" />
         <activity android:name=".admin.PengaturanTokoActivity" />
+        <activity android:name=".admin.EditOrderxxzxLaundryActivity" />
         <activity android:name=".user.OrderLaundryActivity" />
         <activity android:name=".user.MyAccountActivity" />
         <activity android:name=".admin.AdminMainActivity" />

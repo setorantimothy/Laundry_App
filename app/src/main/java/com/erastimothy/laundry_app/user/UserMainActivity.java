@@ -2,12 +2,15 @@ package com.erastimothy.laundry_app.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.erastimothy.laundry_app.admin.AdminMainActivity;
 import com.erastimothy.laundry_app.dao.UserDao;
 import com.erastimothy.laundry_app.model.User;
 import com.erastimothy.laundry_app.R;
@@ -41,7 +44,6 @@ public class UserMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(UserMainActivity.this, OrderLaundryActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -50,9 +52,6 @@ public class UserMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(UserMainActivity.this, MyOrderActivity.class);
                 startActivity(intent);
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.UserMainActivityLayout,new MyOrderFragment())
-//                        .commit();
             }
         });
 
@@ -60,9 +59,22 @@ public class UserMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 UserPreferences sessionUser = new UserPreferences(UserMainActivity.this);
-                Toast.makeText(UserMainActivity.this, "Bye, " + sessionUser.getUserLoginFromSharedPrefernces().getName(), Toast.LENGTH_SHORT).show();
-                sessionUser.logout();
-                userDao.signOut();
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserMainActivity.this);
+                builder.setMessage("Yakin ingin keluar ? ");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(UserMainActivity.this, "Bye, " + sessionUser.getUserLoginFromSharedPrefernces().getName(), Toast.LENGTH_SHORT).show();
+                        sessionUser.logout();
+                        userDao.signOut();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
@@ -86,5 +98,24 @@ public class UserMainActivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Yakin ingin keluar ? ");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                System.exit(0);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

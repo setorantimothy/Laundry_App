@@ -51,10 +51,13 @@ public class LaundryDao {
     public void reset(){
         reference.setValue("init data");
     }
-    public void save(Laundry laundry){
-        Random random = new Random();
-        String rand = String.valueOf(random.nextInt(1000-1)+100);
-        String order_id = String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"))+rand);
+    public void save(Laundry laundry,String order_id){
+        if(order_id.trim().isEmpty()){
+            Random random = new Random();
+            String rand = String.valueOf(random.nextInt(1000-1)+100);
+            order_id = String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"))+rand);
+        }
+
         laundry.setOrder_id(order_id);
         reference.child(order_id).setValue(laundry);
         Toast.makeText(activity, "Orderan berhasil diterima !", Toast.LENGTH_SHORT).show();

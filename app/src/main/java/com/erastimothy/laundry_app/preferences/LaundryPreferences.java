@@ -46,7 +46,7 @@ public class LaundryPreferences {
     public void setAllLaundry(List<Laundry> laundryList){
         Gson gson = new Gson();
         String json = gson.toJson(laundryList);
-
+        editor.remove(KEY_ALLLAUNDRY);
         editor.putString(KEY_ALLLAUNDRY,json);
         editor.commit();
     }

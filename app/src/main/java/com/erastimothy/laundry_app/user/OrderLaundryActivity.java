@@ -147,7 +147,7 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
                             Double.parseDouble(total_et.getText().toString()));
                     laundryDao = new LaundryDao(OrderLaundryActivity.this);
                     //laundryDao.reset();
-                    laundryDao.save(laundry);
+                    laundryDao.save(laundry,"");
 
                     goToOrderDetail(laundry);
 
@@ -228,10 +228,12 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
         bundle.putString("nama",laundry.getNama());
         bundle.putString("tanggal",laundry.getTanggal());
         bundle.putString("uid",laundry.getUid());
+        bundle.putString("from","order");
         bundle.putString("status",laundry.getStatus());
         intent.putExtra("laundry",bundle);
 
         startActivity(intent);
+        finish();
     }
 
     private void clearForm(){

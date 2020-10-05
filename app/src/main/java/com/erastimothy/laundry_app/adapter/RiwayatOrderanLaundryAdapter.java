@@ -3,35 +3,29 @@ package com.erastimothy.laundry_app.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.erastimothy.laundry_app.R;
 import com.erastimothy.laundry_app.model.Laundry;
 import com.erastimothy.laundry_app.user.OrderDetailActivity;
-import com.erastimothy.laundry_app.user.OrderLaundryActivity;
-import com.erastimothy.laundry_app.user.UserMainActivity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LaundryRecyclerViewAdapter extends RecyclerView.Adapter<LaundryRecyclerViewAdapter.LaundryViewHolder> implements Filterable {
+public class RiwayatOrderanLaundryAdapter extends RecyclerView.Adapter<RiwayatOrderanLaundryAdapter.LaundryViewHolder> implements Filterable {
     private Context context;
     private List<Laundry> laundryList;
     private List<Laundry> laundryListFull;
 
-    public LaundryRecyclerViewAdapter(Context context,List<Laundry> _list){
+    public RiwayatOrderanLaundryAdapter(Context context, List<Laundry> _list){
         this.laundryList = _list;
         this.laundryListFull = new ArrayList<>(laundryList);
         this.context = context;
@@ -41,17 +35,18 @@ public class LaundryRecyclerViewAdapter extends RecyclerView.Adapter<LaundryRecy
 
     @NonNull
     @Override
-    public LaundryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_myorder, parent, false);
-        return new LaundryViewHolder(view);
+    public RiwayatOrderanLaundryAdapter.LaundryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_riwayat_orderan, parent, false);
+        return new RiwayatOrderanLaundryAdapter.LaundryViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LaundryRecyclerViewAdapter.LaundryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RiwayatOrderanLaundryAdapter.LaundryViewHolder holder, int position) {
         Laundry laundry = laundryList.get(position);
-        holder.noOrder_tv.setText(laundry.getOrder_id());
-        holder.total_tv.setText(String.valueOf(laundry.getTotal_pembayaran()));
-        holder.status_tv.setText(laundry.getStatus());
+
+        holder.noOrder_tv.setText(laundry.getOrder_id()+" - ("+laundry.getTanggal()+")");
+        holder.nama_tv.setText(laundry.getNama());
+        holder.total_tv.setText(String.valueOf(laundry.getTotal_pembayaran()) + " - "+laundry.getStatus());
     }
 
     @Override
@@ -94,12 +89,12 @@ public class LaundryRecyclerViewAdapter extends RecyclerView.Adapter<LaundryRecy
     };
 
     public class LaundryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView noOrder_tv,total_tv,status_tv;
+        TextView noOrder_tv,total_tv,nama_tv;
         LaundryViewHolder(View view){
             super(view);
             noOrder_tv = view.findViewById(R.id.noOrder_tv);
             total_tv = view.findViewById(R.id.total_tv);
-            status_tv = view.findViewById(R.id.status_tv);
+            nama_tv = view.findViewById(R.id.nama_tv);
             view.setOnClickListener(this);
         }
 

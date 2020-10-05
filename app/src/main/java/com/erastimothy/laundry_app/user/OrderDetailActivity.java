@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.erastimothy.laundry_app.MainActivity;
 import com.erastimothy.laundry_app.R;
 import com.erastimothy.laundry_app.model.Laundry;
 import com.erastimothy.laundry_app.model.Toko;
@@ -42,8 +43,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         biayaAntarTv = findViewById(R.id.biaya_antar_tv);
         MaterialButton btnBack = findViewById(R.id.btnBack);
 
-
-
         //set data
         orderid_tv.setText(bundle.getString("order_id"));
         namaTv.setText(bundle.getString("nama"));
@@ -61,7 +60,11 @@ public class OrderDetailActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OrderDetailActivity.super.onBackPressed();
+                if(getIntent().hasExtra("from")){
+                    startActivity(new Intent(OrderDetailActivity.this, MainActivity.class));
+                }
+                else
+                    OrderDetailActivity.super.onBackPressed();
             }
         });
 

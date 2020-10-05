@@ -55,7 +55,7 @@
             android:layout_margin="20dp"
             >
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/pegawai_rv"
+                android:id="@+id/order_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/item_myorder"/>
