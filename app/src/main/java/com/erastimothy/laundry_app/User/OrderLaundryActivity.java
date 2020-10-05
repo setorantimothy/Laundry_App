@@ -150,7 +150,7 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
             public void onClick(View view) {
                 if(validateForm()){
                     laundry = new Laundry(user.getUid(),nama_et.getText().toString().trim(),
-                            dropDownText.getAdapter().getItem(2).toString(),alamat_et.getText().toString().trim(),
+                            dropDownText.getText().toString(),alamat_et.getText().toString().trim(),
                             "order", LocalDate.now().toString(),"null",Double.parseDouble(kuantitas_et.getText().toString()),
                             Double.parseDouble(harga_et.getText().toString()),Double.parseDouble(ongkir_et.getText().toString()),
                             Double.parseDouble(total_et.getText().toString()));
@@ -221,14 +221,12 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
 
     }
     private void clearForm(){
-        TextInputEditText nama_et = findViewById(R.id.nama_et);
         TextInputEditText kuantitas_et = findViewById(R.id.quantity_et);
         TextInputEditText harga_et = findViewById(R.id.harga_et);
         TextInputEditText ongkir_et = findViewById(R.id.ongkir_et);
         TextInputEditText total_et = findViewById(R.id.total_et);
         TextInputEditText alamat_et = findViewById(R.id.alamat_et);
 
-        nama_et.setText("");
         kuantitas_et.setText("");
         harga_et.setText("");
         ongkir_et.setText("");
@@ -252,7 +250,7 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
             Toast.makeText(this, "Minimal order 1 kg", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(kuantitas_et.getText().length() > 0 && Double.parseDouble(harga_et.getText().toString()) < 0){
+        if(harga_et.getText().length() > 0 && Double.parseDouble(harga_et.getText().toString()) < 0){
             Toast.makeText(this, "Isi form dengan sesuai!", Toast.LENGTH_SHORT).show();
             return false;
         }

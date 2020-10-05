@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class LaundryDao {
@@ -49,8 +50,8 @@ public class LaundryDao {
     }
     public void save(Laundry laundry){
         Random random = new Random();
-        String rand = String.valueOf(random.nextInt(100-1)+100);
-        String order_id = String.valueOf(LocalDate.now()+rand);
+        String rand = String.valueOf(random.nextInt(1000-1)+100);
+        String order_id = String.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"))+rand);
         laundry.setOrder_id(order_id);
         reference.child(order_id).setValue(laundry);
         Toast.makeText(activity, "Orderan berhasil diterima !", Toast.LENGTH_SHORT).show();
