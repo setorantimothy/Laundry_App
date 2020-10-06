@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,20 +18,26 @@ import com.erastimothy.laundry_app.model.Laundry;
 import com.erastimothy.laundry_app.model.Toko;
 import com.erastimothy.laundry_app.preferences.TokoPreferences;
 import com.google.android.material.button.MaterialButton;
+import com.google.zxing.WriterException;
+
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
 
 public class OrderDetailActivity extends AppCompatActivity {
     private TextView orderid_tv,namaTv,alamatTv,tanggalTv,statusTv,jenisTv,kuantitasTv,hargaTv,totalTv,biayaAntarTv,namaTokoTv,alamatTokoTv;
+    private ImageView qr_iv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         TokoPreferences tokoPreferences = new TokoPreferences(this);
         Toko toko = tokoPreferences.getToko();
         super.onCreate(savedInstanceState);
 
-
         //set content view
         setContentView(R.layout.activity_order_detail);
         Laundry laundry = (Laundry) getIntent().getSerializableExtra("laundry");
         Bundle bundle = getIntent().getBundleExtra("laundry");
+        qr_iv = findViewById(R.id.qr_iv);
         orderid_tv = findViewById(R.id.orderid_tv);
         namaTv = findViewById(R.id.nama_tv);
         namaTokoTv = findViewById(R.id.namaToko_tv);
@@ -56,6 +65,16 @@ public class OrderDetailActivity extends AppCompatActivity {
         totalTv.setText(bundle.getString("total_pembayaran"));
         namaTokoTv.setText(toko.getName());
         alamatTokoTv.setText(toko.getAlamat()+"\n"+toko.getTelp());
+
+        //set qr code
+        QRGEncoder qrgEncoder = new QRGEncoder(bundle.getString("order_id").trim(),null, QRGContents.Type.TEXT,150);
+        try {
+            Bitmap qrBits = qrgEncoder.getBitmap();
+            qr_iv.setImageBitmap(qrBits);
+        }catch (Exception e){
+            Log.v("QR : ",e.toString());
+        }
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

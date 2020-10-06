@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.erastimothy.laundry_app.CameraScannerFragment;
 import com.erastimothy.laundry_app.R;
 import com.erastimothy.laundry_app.adapter.LaundryRecyclerViewAdapter;
 import com.erastimothy.laundry_app.adapter.OrderanLaundryAdapter;
@@ -28,7 +29,7 @@ public class ListOrderan extends AppCompatActivity {
     private SwipeRefreshLayout refreshLayout;
     private SearchView searchView;
     private OrderanLaundryAdapter adapter;
-    private MaterialButton btnBack;
+    private MaterialButton btnBack,btnCamera;
     private LaundryDao laundryDao;
     private LaundryPreferences laundryPreferences;
     private List<Laundry> myLaundryList;
@@ -43,10 +44,22 @@ public class ListOrderan extends AppCompatActivity {
         userDao = new UserDao(this);
 
         btnBack = findViewById(R.id.btnBack);
+        btnCamera = findViewById(R.id.btnCamera);
         searchView = (SearchView) findViewById(R.id.search_pegawai);
         refreshLayout = findViewById(R.id.swipe_refresh);
 
         getData();
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            CameraScannerFragment cameraScannerFragment = new CameraScannerFragment();
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.list_orderan_layout, cameraScannerFragment)
+                        .commit();
+            }
+        });
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -84,6 +84,7 @@ public class MyOrderActivity extends AppCompatActivity {
 
     private void getData(){
         myLaundryList = new ArrayList<>();
+        laundryListFull = new ArrayList<>();
         //asign data
         laundryDao = new LaundryDao(this);
         laundryDao.setAllDataLaundry();
@@ -91,10 +92,12 @@ public class MyOrderActivity extends AppCompatActivity {
         laundryPreferences = new LaundryPreferences(this);
         laundryListFull =  laundryPreferences.getListLaundryFromSharedPreferences();
 
-        //assign data only my order not all
-        for(int i=0 ; i < laundryListFull.size(); i++){
-            if(laundryListFull.get(i).getUid().trim().equalsIgnoreCase(userDao.getCurrentUid().trim())){
-                myLaundryList.add((Laundry) laundryListFull.get(i));
+        if(laundryListFull != null){
+            //assign data only my order not all
+            for(int i=0 ; i < laundryListFull.size(); i++){
+                if(laundryListFull.get(i).getUid().trim().equalsIgnoreCase(userDao.getCurrentUid().trim())){
+                    myLaundryList.add((Laundry) laundryListFull.get(i));
+                }
             }
         }
 
