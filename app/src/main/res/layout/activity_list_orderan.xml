@@ -20,21 +20,31 @@
             android:orientation="horizontal">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBack"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:layout_weight="0.25"
                 app:icon="@drawable/abc_vector_test"
                 />
 
             <TextView
                 android:id="@+id/textView"
                 style="@style/TextAppearance.MaterialComponents.Headline4"
-                android:layout_width="240dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:text="My Order"
+                android:text="List Order Pending"
                 android:textAlignment="center" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCamera"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:layout_margin="16dp"
+                android:backgroundTint="#bc4b51"
+                app:icon="@drawable/ic_baseline_camera_alt_24"
+                />
         </LinearLayout>
 
 

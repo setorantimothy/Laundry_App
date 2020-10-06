@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:text="My Order"
+                android:text="Riwayat Order"
                 android:textAlignment="center" />
         </LinearLayout>
 

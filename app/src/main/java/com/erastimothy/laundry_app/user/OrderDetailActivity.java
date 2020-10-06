@@ -44,7 +44,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         MaterialButton btnBack = findViewById(R.id.btnBack);
 
         //set data
-        orderid_tv.setText(bundle.getString("order_id"));
+        orderid_tv.setText("#"+bundle.getString("order_id"));
         namaTv.setText(bundle.getString("nama"));
         alamatTv.setText(bundle.getString("alamat"));
         tanggalTv.setText(bundle.getString("tanggal"));

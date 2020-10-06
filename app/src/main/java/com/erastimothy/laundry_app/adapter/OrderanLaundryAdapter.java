@@ -2,6 +2,7 @@ package com.erastimothy.laundry_app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,15 @@ public class OrderanLaundryAdapter extends RecyclerView.Adapter<OrderanLaundryAd
         holder.noOrder_tv.setText(laundry.getOrder_id()+" - "+laundry.getTanggal());
         holder.nama_tv.setText(laundry.getNama());
         holder.total_tv.setText(String.valueOf(laundry.getTotal_pembayaran()));
+
+        if(laundry.getStatus().trim().equalsIgnoreCase("Pesanan Selesai")){
+            holder.noOrder_tv.setBackgroundColor(Color.parseColor("#02c39a"));
+        }else if(laundry.getStatus().trim().equalsIgnoreCase("Pesanan Batal"))
+            holder.noOrder_tv.setBackgroundColor(Color.parseColor("#ff6b6b"));
+        else if(laundry.getStatus().trim().equalsIgnoreCase("Menunggu Penjemputan"))
+            holder.noOrder_tv.setBackgroundColor(Color.parseColor("#ffe66d"));
+        else if(laundry.getStatus().trim().equalsIgnoreCase("Sedang  Diproses"))
+            holder.noOrder_tv.setBackgroundColor(Color.parseColor("#00a8e8"));
     }
 
     @Override

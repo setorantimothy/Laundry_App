@@ -2,6 +2,7 @@ package com.erastimothy.laundry_app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,10 +44,15 @@ public class RiwayatOrderanLaundryAdapter extends RecyclerView.Adapter<RiwayatOr
     @Override
     public void onBindViewHolder(@NonNull RiwayatOrderanLaundryAdapter.LaundryViewHolder holder, int position) {
         Laundry laundry = laundryList.get(position);
-
         holder.noOrder_tv.setText(laundry.getOrder_id()+" - ("+laundry.getTanggal()+")");
         holder.nama_tv.setText(laundry.getNama());
         holder.total_tv.setText(String.valueOf(laundry.getTotal_pembayaran()) + " - "+laundry.getStatus());
+
+        if(laundry.getStatus().equalsIgnoreCase("Pesanan Selesai")){
+            holder.noOrder_tv.setBackgroundColor(Color.parseColor("#02c39a"));
+        }else if(laundry.getStatus().equalsIgnoreCase("Pesanan Batal"))
+            holder.noOrder_tv.setBackgroundColor(Color.parseColor("#ff6b6b"));
+
     }
 
     @Override
@@ -96,6 +102,7 @@ public class RiwayatOrderanLaundryAdapter extends RecyclerView.Adapter<RiwayatOr
             total_tv = view.findViewById(R.id.total_tv);
             nama_tv = view.findViewById(R.id.nama_tv);
             view.setOnClickListener(this);
+
         }
 
         @Override
@@ -104,6 +111,7 @@ public class RiwayatOrderanLaundryAdapter extends RecyclerView.Adapter<RiwayatOr
 
             Intent intent = new Intent(view.getContext(), OrderDetailActivity.class);
             Bundle bundle = new Bundle();
+
             bundle.putString("alamat",laundry.getAlamat());
             bundle.putString("biaya_antar",String.valueOf(laundry.getBiaya_antar()));
             bundle.putString("harga",String.valueOf(laundry.getHarga()));
