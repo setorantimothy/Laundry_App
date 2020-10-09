@@ -43,8 +43,9 @@ public class AdminMainActivity extends AppCompatActivity {
         LaundryPreferences laundryPreferences = new LaundryPreferences(AdminMainActivity.this);
         laundryList = laundryPreferences.getListLaundryFromSharedPreferences();
         if(laundryList != null){
+            totalPendapatan =0;
+            totalPesanan=0;
             for(int i=0; i< laundryList.size(); i++){
-                Log.d("LL : ",i+laundryList.get(i).getOrder_id());
                 if(laundryList.get(i).getStatus().trim().equalsIgnoreCase("Pesanan Selesai")){
                     totalPesanan++;
                     totalPendapatan += laundryList.get(i).getTotal_pembayaran();
