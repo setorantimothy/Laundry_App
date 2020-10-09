@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,8 +20,10 @@ import com.erastimothy.laundry_app.preferences.UserPreferences;
 import com.erastimothy.laundry_app.R;
 import com.google.android.material.card.MaterialCardView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AdminMainActivity extends AppCompatActivity {
     List<Laundry> laundryList;
@@ -41,6 +44,7 @@ public class AdminMainActivity extends AppCompatActivity {
         laundryList = laundryPreferences.getListLaundryFromSharedPreferences();
         if(laundryList != null){
             for(int i=0; i< laundryList.size(); i++){
+                Log.d("LL : ",i+laundryList.get(i).getOrder_id());
                 if(laundryList.get(i).getStatus().trim().equalsIgnoreCase("Pesanan Selesai")){
                     totalPesanan++;
                     totalPendapatan += laundryList.get(i).getTotal_pembayaran();
@@ -49,7 +53,7 @@ public class AdminMainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_admin_main);
-        MaterialCardView menu_orderan,menu_keluar,menu_riwayat,menu_PengaturanToko;
+        MaterialCardView menu_orderan,menu_keluar,menu_riwayat,menu_PengaturanToko,menu_layanan;
         TextView pendapatan_tv = findViewById(R.id.pendapatan_tv);
         TextView pesanan_tv = findViewById(R.id.pesanan_tv);
         TextView nama_tv = findViewById(R.id.nama_txt);
@@ -57,10 +61,15 @@ public class AdminMainActivity extends AppCompatActivity {
         menu_orderan = findViewById(R.id.menu_orderan);
         menu_PengaturanToko = findViewById(R.id.menu_pengaturanToko);
         menu_riwayat = findViewById(R.id.menu_riwayat);
+        menu_layanan = findViewById(R.id.menu_layanan);
 
         nama_tv.setText(sessionUser.getUserLoginFromSharedPrefernces().getName());
         pesanan_tv.setText(String.valueOf(totalPesanan)+" Pesanan");
-        pendapatan_tv.setText("Rp. "+String.valueOf(totalPendapatan));
+
+        Locale localID = new Locale("in","ID");
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(localID);
+
+        pendapatan_tv.setText(numberFormat.format(totalPendapatan));
 
 
         menu_PengaturanToko.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +93,14 @@ public class AdminMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdminMainActivity.this, RiwayatOrder.class);
+                startActivity(intent);
+            }
+        });
+
+        menu_layanan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminMainActivity.this, LayananActivity.class);
                 startActivity(intent);
             }
         });

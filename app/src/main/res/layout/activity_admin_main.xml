@@ -3,6 +3,7 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="50dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -185,7 +186,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_account_balance_wallet_24" />
+                        android:src="@drawable/ic_baseline_receipt_24" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -250,7 +251,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/menu_keluar"
+                android:id="@+id/menu_layanan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -269,7 +270,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_exit_to_app_24" />
+                        android:src="@drawable/ic_baseline_storage_24" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -277,7 +278,7 @@
                         android:layout_marginTop="10dp"
                         android:textAlignment="center"
                         style="@style/TextAppearance.MaterialComponents.Headline6"
-                        android:text="Keluar Aplikasi"/>
+                        android:text="Kelola Layanan"/>
 
 
                 </LinearLayout>
@@ -285,6 +286,57 @@
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
+        <LinearLayout
+                android:id="@+id/menu_row3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/menu_row2">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/menu_keluar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#555"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:background="#E53935"
+                        android:padding="24dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_exit_to_app_24_white" />
+
+                        <TextView
+                            android:textColor="#fff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textAlignment="center"
+                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:text="Keluar Aplikasi"/>
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

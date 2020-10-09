@@ -22,8 +22,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.erastimothy.laundry_app.dao.LaundryDao;
+import com.erastimothy.laundry_app.dao.LayananDao;
 import com.erastimothy.laundry_app.model.Laundry;
+import com.erastimothy.laundry_app.model.Layanan;
 import com.erastimothy.laundry_app.model.Toko;
+import com.erastimothy.laundry_app.preferences.LayananPreferences;
 import com.erastimothy.laundry_app.preferences.TokoPreferences;
 import com.erastimothy.laundry_app.preferences.UserPreferences;
 import com.erastimothy.laundry_app.model.User;
@@ -58,6 +61,7 @@ import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.turf.TurfMeasurement;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -71,10 +75,14 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
     private AutoCompleteTextView dropDownText;
     private UserPreferences userSP;
     private TokoPreferences tokoSP;
+    private LayananPreferences layananSP;
     private double harga = 0;
     private Toko toko;
     private Laundry laundry;
     private LaundryDao laundryDao;
+    private Layanan layanan;
+    private LayananDao layananDao;
+    private List<Layanan> layananList;
     User user;
 
     private static final String DESTINATION_SYMBOL_LAYER_ID = "destination-symbol-layer-id";
@@ -99,8 +107,11 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
         tokoSP = new TokoPreferences(OrderLaundryActivity.this);
         toko = tokoSP.getToko();
         user = userSP.getUserLoginFromSharedPrefernces();
+        layananSP = new LayananPreferences(this);
+        layananDao = new LayananDao(this);
 
-        //laundryDao = new LaundryDao(OrderLaundryActivity.this);
+        layananDao.setAllDataLayanan();
+        layananList = layananSP.getListLayananFromSharedPreferences();
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -121,11 +132,13 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
 
 
         //list items
-        String[] items = new String[]{
-                "Cuci Kiloan",
-                "Cuci Sprei Satuan",
-                "Cuci Boneka Satuan",
-        };
+        List<String> items = new ArrayList<>();
+        if(layananList !=null){
+            for (int i=0 ;i < layananList.size();i++){
+                items.add(layananList.get(i).getName());
+            }
+        }
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 OrderLaundryActivity.this,
@@ -193,17 +206,24 @@ public class OrderLaundryActivity extends AppCompatActivity implements OnMapRead
         dropDownText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (adapter.getItem(i)) {
-                    case "Cuci Kiloan":
-                        harga = 5000;
-                        break;
-                    case "Cuci Sprei Satuan":
-                        harga = 9000;
-                        break;
-                    case "Cuci Boneka Satuan":
-                        harga = 15000;
-                        break;
+                if(layananList !=null){
+                    for (int j=0 ;j < layananList.size();j++){
+                        if(adapter.getItem(i).toString().trim().equalsIgnoreCase(layananList.get(j).getName().trim()))
+                            harga = layananList.get(j).getHarga();
+                    }
                 }
+
+//                switch (adapter.getItem(i)) {
+//                    case "Cuci Kiloan":
+//                        harga = 5000;
+//                        break;
+//                    case "Cuci Sprei Satuan":
+//                        harga = 9000;
+//                        break;
+//                    case "Cuci Boneka Satuan":
+//                        harga = 15000;
+//                        break;
+//                }
                 if (!kuantitas_et.getText().toString().isEmpty()) {
                     hitungHarga();
                 } else {
