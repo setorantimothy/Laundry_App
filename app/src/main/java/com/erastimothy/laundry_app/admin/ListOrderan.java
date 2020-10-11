@@ -113,10 +113,13 @@ public class ListOrderan extends AppCompatActivity {
             }
         }
 
+        if(myLaundryList != null){
+            adapter = new OrderanLaundryAdapter(this,myLaundryList);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+        }
 
-        adapter = new OrderanLaundryAdapter(this,myLaundryList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+
     }
 
     @Override

@@ -96,8 +96,11 @@ public class LayananActivity extends AppCompatActivity {
         layananPreferences = new LayananPreferences(this);
         layananList =  layananPreferences.getListLayananFromSharedPreferences();
 
-        adapter = new LayananAdapter(this,layananList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        if(layananList != null){
+            adapter = new LayananAdapter(this,layananList);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+        }
+
     }
 }
